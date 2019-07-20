@@ -52,20 +52,20 @@ def feereport(plugin=None):
     week_fee_sum = 0
     month_fee_sum = 0
     for fwd in fee_data:
-        fee_sat = fwd[0] / 1000
+        fee_msat = fwd[0]
         resolved_time = fwd[1]
         if resolved_time > month_ago:
-            month_fee_sum += fee_sat
+            month_fee_sum += fee_msat
             if resolved_time > week_ago:
-                week_fee_sum += fee_sat
+                week_fee_sum += fee_msat
                 if resolved_time > day_ago:
-                    day_fee_sum += fee_sat
+                    day_fee_sum += fee_msat
 
     return {
         "channel_fees": channel_fees,
-        "day_fee_sum": str(int(day_fee_sum)),
-        "week_fee_sum": str(int(week_fee_sum)),
-        "month_fee_sum": str(int(month_fee_sum)),
+        "day_fee_sum": str(int(day_fee_sum / 1000)),
+        "week_fee_sum": str(int(week_fee_sum / 1000)),
+        "month_fee_sum": str(int(month_fee_sum / 1000)),
     }
 
 @plugin.init()
