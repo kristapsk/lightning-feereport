@@ -32,10 +32,10 @@ def feereport(plugin=None):
         for detail in channel_detail:
             if detail["source"] == our_nodeid:
                 channel_fees.append({
-                    "chan_point": channel["short_channel_id"],
-                    "base_fee_msat": detail["base_fee_millisatoshi"],
-                    "fee_per_mil": detail["fee_per_millionth"],
-                    "fee_rate": detail["fee_per_millionth"] / 1000000
+                    "chan_point": channel["funding_txid"] + ":0",   # TODO: :0
+                    "base_fee_msat": str(detail["base_fee_millisatoshi"]),
+                    "fee_per_mil": str(detail["fee_per_millionth"]),
+                    "fee_rate": "%.8f" % float(detail["fee_per_millionth"] / 1000000)
                 })
                 break
 
@@ -63,9 +63,9 @@ def feereport(plugin=None):
 
     return {
         "channel_fees": channel_fees,
-        "day_fee_sum": int(day_fee_sum),
-        "week_fee_sum": int(week_fee_sum),
-        "month_fee_sum": int(month_fee_sum),
+        "day_fee_sum": str(int(day_fee_sum)),
+        "week_fee_sum": str(int(week_fee_sum)),
+        "month_fee_sum": str(int(month_fee_sum)),
     }
 
 @plugin.init()
