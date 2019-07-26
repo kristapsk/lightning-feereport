@@ -54,8 +54,6 @@ def feereport(plugin=None):
                 for fwd in rpc.listforwards()["forwards"]
                 if fwd["status"] == "settled" and "resolved_time" in fwd)
     now = datetime.now()
-    # TODO: need to look at LND code, do it treats day as from 00:00 today or
-    # past 24 hours. Similarly with week and month.
     day_ago = (now - timedelta(hours = 24)).timestamp()
     week_ago = (now - timedelta(days = 7)).timestamp()
     month_ago = (now - timedelta(days = 30)).timestamp()
