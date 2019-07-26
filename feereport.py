@@ -16,6 +16,7 @@ Author: Kristaps Kaupe (https://github.com/kristapsk)
 from datetime import datetime, timedelta
 from lightning import LightningRpc, Plugin
 from os.path import join
+from packaging import version
 
 rpc = None
 plugin = Plugin(autopatch=True)
@@ -46,6 +47,7 @@ def feereport(plugin=None):
                     "fee_per_mil": str(detail["fee_per_millionth"]),
                     "fee_rate": "%.8f" % float(detail["fee_per_millionth"] / 1000000)
                 })
+
                 break
 
     fee_data = ((fwd["fee"], fwd["resolved_time"])
@@ -83,7 +85,13 @@ def init(options, configuration, plugin):
     plugin.log("feereport init")
     path = join(configuration["lightning-dir"], configuration["rpc-file"])
     rpc = LightningRpc(path)
-    our_nodeid = rpc.getinfo()["id"]
-    return
+    info = rpc.getinfo()
+    our_nodeid = info["id"]
+    # resolved_time for listforwards was introduced with c-lightning v0.7.1,
+    # day_fee_sum, week_fee_sum and month_fee sum will always show zero with
+    # older versions.
+    if not (version.parse(info["version"]) >= version.parse("v0.7.1")):
+        plugin.log("c-lightning v0.7.1 or later is required, "
+                   "some feereport functionality might not work!")
 
 plugin.run()
