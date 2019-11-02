@@ -12,3 +12,4 @@ Active the plugin with:
 Call the plugin with:
 `lightning-cli feereport`
 
+For full functionality needs c-lightning v0.7.1 or newer.
