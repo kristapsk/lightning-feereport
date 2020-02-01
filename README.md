@@ -1,4 +1,7 @@
 # lightning-feereport
+
+[![tippin.me](https://badgen.net/badge/%E2%9A%A1%EF%B8%8Ftippin.me/@kristapsk/F0918E)](https://tippin.me/@kristapsk)
+
 feereport plugin for c-lightning
 
 This plugin for c-lightning emulates `lncli feereport` command of LND.
