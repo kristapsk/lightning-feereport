@@ -2,6 +2,8 @@
 
 [![tippin.me](https://badgen.net/badge/%E2%9A%A1%EF%B8%8Ftippin.me/@kristapsk/F0918E)](https://tippin.me/@kristapsk)
 
+**I'm no longer maintainging this, use `cln-feereportt.sh` from [cln-scripts](https://github.com/kristapsk/cln-scripts) instead.**
+
 feereport plugin for c-lightning
 
 This plugin for c-lightning emulates `lncli feereport` command of LND.
